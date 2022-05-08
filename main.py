@@ -25,23 +25,23 @@ data_hparams = {}
 
 
 ## train ##
-X, Y = get_data(stock_ids, train_begin_date, train_end_date, prevk, nextk, alpha, prev, s, rate)
-X_valid, Y_valid = get_data(stock_ids, valid_begin_date, valid_end_date, prevk, nextk, alpha, prev, s, rate)
-X_test, Y_test = get_data(stock_ids, test_begin_date, test_end_date, prevk, nextk, alpha, prev, s, rate)
+X, Y = get_data(**data_hparams, flag='train')
+X_valid, Y_valid = get_data(**data_hparams, flag='valid')
+X_test, Y_test = get_data(**data_hparams, flag='test')
 clf = BaseClassifier(model_name=model_name,
-                    model_hparams=model_hparams,
-                    optimizer_name=optimizer_name,
-                    optimizer_hparams=optimizer_hparams,
-                    trainer_hparams=trainer_hparams)
+                     model_hparams=model_hparams,
+                     optimizer_name=optimizer_name,
+                     optimizer_hparams=optimizer_hparams,
+                     trainer_hparams=trainer_hparams)
 clf.fit(X, Y, X_valid, Y_valid)
 clf.test(X_test, Y_test)
 
 ## load pretrained model ##
 # clf = BaseClassifier(model_name=model_name,
-#                     model_hparams=model_hparams,
-#                     optimizer_name=optimizer_name,
-#                     optimizer_hparams=optimizer_hparams,
-#                     trainer_hparams=trainer_hparams)
+#                      model_hparams=model_hparams,
+#                      optimizer_name=optimizer_name,
+#                      optimizer_hparams=optimizer_hparams,
+#                      trainer_hparams=trainer_hparams)
 # ckp = '...'
 # clf.load_from_checkpoint(ckp)
 for i in range(10):
